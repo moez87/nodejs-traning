@@ -31,7 +31,7 @@ const userDetailsAPI = require('./routes/userDetailsAPI');
 const tutorialAPI = require('./routes/tutorialAPI');
 const tagAPI = require('./routes/tagAPI');
 const mailAPI = require('./routes/mailAPI');
-const uploadAPI = require('routes/uploadAPI')
+const uploadAPI = require('./routes/uploadAPI')
 app.get('/', async (req, res) => {
   res.json({message: "Hello Moez"});
 });
