@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer");
 const path = require('path');
 const fs= require('fs');
 const ejs= require('ejs');
+const passport = require('passport');
 
 router.get('/sendMail', async (req, res) => {
   // Generate test SMTP service account from ethereal.email
@@ -39,7 +40,7 @@ router.get('/sendMail', async (req, res) => {
 });
 
 
-router.get('/sendMailV2', async (req, res) => {
+router.get('/sendMailV2', passport.authenticate('bearer', { session: false }), async (req, res) => {
 
  
 

@@ -2,6 +2,7 @@ const express = require('express')
 const multer = require('multer');
 const path = require('path');
 const router = express.Router();
+const passport = require('passport');
 const User = require('../models/userSchema');
 
 
@@ -41,11 +42,11 @@ const myFileFilter = (req, file, cb) => {
 // creat a multer midleweare
 const upload = multer({ storage: myStorage, fileFilter: myFileFilter, limits: { fieldSize: 1024 * 1024 * 20 } })
 
-router.post('/uploadImage/:id', upload.single('img'), async (req, res) => {
+router.post('/uploadImage/:id', [passport.authenticate('bearer', { session: false }), upload.single('img')], async (req, res) => {
     res.json({ message: 'immage uploaded successfully' })
 });
 // upload Multiple immage
-router.post('/uploadImages', upload.array('img', 3), async (req, res) => {
+router.post('/uploadImages', passport.authenticate('bearer', { session: false }), [upload.array('img', 3)], async (req, res) => {
     res.json({ message: 'immage uploaded successfully' })
 });
 

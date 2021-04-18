@@ -1,5 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+
 const router = express.Router();
 //require user schema 
 
@@ -18,7 +21,15 @@ router.post('/login', async (req, res) => {
       const passwordEqual = await bcrypt.compare(req.body.password,userFound.password);
      if(passwordEqual)
      {
-        res.json({ message: 'Login successfuly' });
+         // creat a token
+         const tokenData = {
+             email: userFound.email,
+             userId: userFound._id ,
+             firstName: userFound.firstName
+             
+         };
+         const createdToken = jwt.sign(tokenData,process.env.JWT_SECRET ,{expiresIn: process.env.JWT_EXPIRE});
+        res.json({ message: 'Login successfuly', token: createdToken });
      }
      else{
         res.json({ message: 'Please verify your email or password!' });
