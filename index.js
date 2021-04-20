@@ -5,8 +5,10 @@ const bodyParser = require('body-parser');
 const port = 3000;
 const cron = require('./schedule');
 //passport
-// const passport = require()
-
+const passport = require('./passport/passport');
+// first way (dotenv file config )
+const dotenv = require('dotenv');
+dotenv.config();
 
 //create app
 const app = express();
@@ -20,7 +22,7 @@ app.use(morgan('dev'))
 //body-pareser config
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-require('dotenv').config()
+
 
 //import connection to database
 const connect = require('./database/connect');
